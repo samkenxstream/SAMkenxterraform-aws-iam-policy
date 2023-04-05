@@ -116,8 +116,14 @@ module "iam_policy" {
       effect     = "Allow"
       actions    = ["s3:PutObject", "s3:GetObject", "s3:DeleteObject"]
       resources  = ["arn:aws:s3:::test/*"]
-      conditions = []
-    },
+      conditions = [
+        {
+          test     = "StringLike"
+          variable = "cloudwatch:namespace"
+          values   = ["x-*"]
+        },
+      ]
+    }
   }
 }
 
@@ -171,16 +177,16 @@ Available targets:
 
 | Name | Version |
 |------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 0.13 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 3.0 |
-| <a name="requirement_http"></a> [http](#requirement\_http) | >= 2.1 |
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 4.0 |
+| <a name="requirement_http"></a> [http](#requirement\_http) | >= 3.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 3.0 |
-| <a name="provider_http"></a> [http](#provider\_http) | >= 2.1 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 4.0 |
+| <a name="provider_http"></a> [http](#provider\_http) | >= 3.0 |
 
 ## Modules
 
@@ -404,7 +410,7 @@ Check out [our other projects][github], [follow us on twitter][twitter], [apply 
 
 [![README Footer][readme_footer_img]][readme_footer_link]
 [![Beacon][beacon]][website]
-
+<!-- markdownlint-disable -->
   [logo]: https://cloudposse.com/logo-300x69.svg
   [docs]: https://cpco.io/docs?utm_source=github&utm_medium=readme&utm_campaign=cloudposse/terraform-aws-iam-policy&utm_content=docs
   [website]: https://cpco.io/homepage?utm_source=github&utm_medium=readme&utm_campaign=cloudposse/terraform-aws-iam-policy&utm_content=website
@@ -435,3 +441,4 @@ Check out [our other projects][github], [follow us on twitter][twitter], [apply 
   [share_googleplus]: https://plus.google.com/share?url=https://github.com/cloudposse/terraform-aws-iam-policy
   [share_email]: mailto:?subject=terraform-aws-iam-policy&body=https://github.com/cloudposse/terraform-aws-iam-policy
   [beacon]: https://ga-beacon.cloudposse.com/UA-76589703-4/cloudposse/terraform-aws-iam-policy?pixel&cs=github&cm=readme&an=terraform-aws-iam-policy
+<!-- markdownlint-restore -->
